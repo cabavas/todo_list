@@ -4,6 +4,8 @@ import 'package:todo_list/app/core/ui/todo_list_ui_config.dart';
 import 'package:todo_list/app/modules/auth/auth_module.dart';
 import 'package:todo_list/app/modules/splash/splash_page.dart';
 
+import 'modules/auth/login/login_page.dart';
+
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
 
@@ -34,7 +36,7 @@ class _AppWidgetState extends State<AppWidget> {
       routes: {
         ...AuthModule().routers,
       },
-      home: const SplashPage(),
+      home: const LoginPage(),
     );
   }
 }
