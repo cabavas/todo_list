@@ -19,15 +19,13 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
+
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
     DefaultListenerNotifier(changeNotifier: context.read<LoginController>())
         .listener(
       context: context,
-      successCallback: (notifier, listenerInstance) {
-        print('LOGIN EFETUADO COM SUCESSO ####################');
-      },
+      successCallback: (notifier, listenerInstance) {},
     );
   }
 
