@@ -6,6 +6,7 @@ import 'package:todo_list/app/core/widget/todo_list_logo.dart';
 import 'package:todo_list/app/modules/auth/register/register_controller.dart';
 import 'package:validatorless/validatorless.dart';
 
+import '../../../core/notifier/default_listener_notifier.dart';
 import '../../../core/validators/validators.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -30,21 +31,25 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
-    final controller = context.read<RegisterController>();
-    controller.addListener(() {
-      var success = controller.success;
-      var error = controller.error;
-      if (success) {
+    final defaultListener = DefaultListenerNotifier(
+        changeNotifier: context.read<RegisterController>());
+    defaultListener.listener(
+      context: context,
+      successCallback: (notifier, listenerInstance) {
+        listenerInstance.dispose();
         Navigator.of(context).pop();
-      } else if (error != null && error.isNotEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('error'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    });
+      },
+      // Atributo opcional
+      // errorCallback: (notifier, listenerInstance) {},
+    );
+    // final controller = context.read<RegisterController>();
+    // controller.addListener(() {
+    //   var success = controller.success;
+    //   var error = controller.error;
+    //   if (success) {
+    //     Navigator.of(context).pop();
+    //   } else if (error != null && error.isNotEmpty) {}
+    // });
   }
 
   @override

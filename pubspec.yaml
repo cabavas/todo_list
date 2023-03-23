@@ -41,6 +41,7 @@ dependencies:
   firebase_auth: ^4.2.10
   validatorless: ^1.2.0
   synchronized: ^3.0.1
+  flutter_overlay_loader: ^2.0.0
   
 
 
