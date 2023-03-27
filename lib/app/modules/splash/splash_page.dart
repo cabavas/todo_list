@@ -7,31 +7,9 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-                minWidth: constraints.maxWidth,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TodoListLogo(),
-                    Text(''),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
+    return const Scaffold(
+        body: Center(
+      child: TodoListLogo(),
+    ));
   }
 }
