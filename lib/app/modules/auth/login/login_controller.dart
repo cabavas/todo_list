@@ -21,9 +21,11 @@ class LoginController extends DefaultChangeNotifier {
       if (user != null) {
         success();
       } else {
+        _userService.logout();
         setError('Erro ao realizar login com o Google');
       }
     } on AuthException catch (e) {
+      _userService.logout();
       setError(e.message);
     } finally {
       hideLoading();
@@ -41,11 +43,11 @@ class LoginController extends DefaultChangeNotifier {
       if (user != null) {
         success();
       } else {
-        _userService.googleLogout();
+        _userService.logout();
         setError('Usuário ou senha inválidos');
       }
     } on AuthException catch (e) {
-      _userService.googleLogout();
+      _userService.logout();
       setError(e.message);
     } finally {
       hideLoading();

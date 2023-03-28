@@ -9,6 +9,7 @@ import 'package:todo_list/app/services/user/user_service.dart';
 import 'package:todo_list/app/services/user/user_service_impl.dart';
 
 import 'app_widget.dart';
+import 'core/auth/auth_provider.dart';
 
 class AppModule extends StatelessWidget {
   const AppModule({super.key});
@@ -30,6 +31,12 @@ class AppModule extends StatelessWidget {
         ),
         ChangeNotifierProvider<LoginController>(
           create: (context) => LoginController(userService: context.read()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(
+              firebaseAuth: context.read(), userService: context.read())
+            ..loadListener(),
+          lazy: false,
         ),
       ],
       child: const AppWidget(),
