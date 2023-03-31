@@ -19,7 +19,7 @@ class HomeWeekFilter extends StatelessWidget {
       const SizedBox(
         height: 10,
       ),
-      Container(
+      SizedBox(
         height: 95,
         child: DatePicker(
           DateTime.now(),
