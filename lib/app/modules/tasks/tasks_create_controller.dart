@@ -2,7 +2,7 @@ import '../../core/notifier/default_change_notifier.dart';
 import '../../services/tasks/tasks_service.dart';
 
 class TasksCreateController extends DefaultChangeNotifier {
-  TasksService _tasksService;
+  final TasksService _tasksService;
   DateTime? _selectedDate;
 
   TasksCreateController({required TasksService tasksService})

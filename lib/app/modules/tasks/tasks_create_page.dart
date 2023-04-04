@@ -10,7 +10,7 @@ import '../../core/widget/todo_list_field.dart';
 class TasksCreatePage extends StatefulWidget {
   final TasksCreateController _controller;
 
-  TasksCreatePage({Key? key, required TasksCreateController controller})
+  const TasksCreatePage({Key? key, required TasksCreateController controller})
       : _controller = controller,
         super(key: key);
 

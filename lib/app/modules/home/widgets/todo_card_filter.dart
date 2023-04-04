@@ -20,13 +20,13 @@ class TodoCardFilter extends StatelessWidget {
 
   double _getPercentFinished() {
     final total = totalTasksModel?.totalTasks ?? 0.0;
-    final totalFinish = totalTasksModel?.totalTasks ?? 0.1;
+    final totalFinished = totalTasksModel?.totalTasksFinished ?? 0.1;
 
     if (total == 0) {
       return 0.0;
     }
 
-    final percent = (totalFinish * 100) / total;
+    final percent = (totalFinished * 100) / total;
     return percent / 100;
   }
 
@@ -77,7 +77,7 @@ class TodoCardFilter extends StatelessWidget {
                     selected ? context.primaryColorLight : Colors.grey.shade300,
                 valueColor: AlwaysStoppedAnimation<Color>(
                     selected ? Colors.white : context.primaryColor),
-                value: value,
+                value: _getPercentFinished(),
               );
             },
           ),
