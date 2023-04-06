@@ -16,4 +16,9 @@ class MigrationV1 implements Migration {
 
   @override
   void update(Batch batch) {}
+
+  @override
+  void delete(Batch batch) {
+    batch.execute('delete from todo');
+  }
 }

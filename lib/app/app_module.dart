@@ -27,7 +27,9 @@ class AppModule extends StatelessWidget {
           create: (context) => UserRepositoryImpl(firebaseAuth: context.read()),
         ),
         Provider<UserService>(
-          create: (context) => UserServiceImpl(userRepository: context.read()),
+          create: (context) => UserServiceImpl(
+              userRepository: context.read(),
+              sqliteConnectionFactory: context.read()),
         ),
         ChangeNotifierProvider<LoginController>(
           create: (context) => LoginController(userService: context.read()),
