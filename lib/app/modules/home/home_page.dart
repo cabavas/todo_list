@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/app/core/notifier/default_listener_notifier.dart';
+import 'package:todo_list/app/models/task_filter_enum.dart';
 import 'package:todo_list/app/modules/home/home_controller.dart';
 import 'package:todo_list/app/modules/home/widgets/home_drawer.dart';
 import 'package:todo_list/app/core/ui/todo_list_icon.dart';
@@ -22,12 +24,22 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    widget._homeController.loadTotalTasks();
+    DefaultListenerNotifier(changeNotifier: widget._homeController).listener(
+      context: context,
+      successCallback: (notifier, listenerInstance) {
+        listenerInstance.dispose();
+      },
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      widget._homeController.loadTotalTasks();
+      widget._homeController.findTasks(filter: TaskFilterEnum.today);
+    });
   }
 
-  void _goToCreateTasks(BuildContext context) {
+  void _goToCreateTasks(BuildContext context) async {
     // Navigator.of(context).pushNamed('/tasks/create');
-    Navigator.of(context).push(
+    await Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -48,6 +60,7 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+    widget._homeController.refreshPage();
   }
 
   @override
@@ -60,10 +73,15 @@ class _HomePageState extends State<HomePage> {
         actions: [
           PopupMenuButton(
             itemBuilder: (_) => [
-              const PopupMenuItem(
-                child: Text('Mostrar tarefas concluídas'),
+              PopupMenuItem(
+                value: true,
+                child: Text(
+                    '${widget._homeController.showFinishedTasks ? 'Esconder' : 'Mostrar'} tarefas concluídas'),
               ),
             ],
+            onSelected: (value) {
+              widget._homeController.showOrHideFinishedTasks();
+            },
             icon: const Icon(TodoListIcon.filter),
           ),
         ],
